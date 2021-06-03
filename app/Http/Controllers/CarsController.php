@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarsController extends Controller
 {
@@ -14,7 +16,11 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        // Query Builder Pagination
+
+        // $cars = DB::table('cars')->paginate(4);
+
+        $cars = Car::paginate(1);
 
         return view('cars.index', [
             'cars' => $cars
