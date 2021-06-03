@@ -65,7 +65,6 @@
                         </p>
                     @endforelse
                 </p>
-
                 <hr class="mt-4 mb-8">
             </div>
         </div>

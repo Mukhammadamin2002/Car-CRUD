@@ -20,7 +20,7 @@ class CarsController extends Controller
 
         // $cars = DB::table('cars')->paginate(4);
 
-        $cars = Car::paginate(1);
+        $cars = Car::paginate(3);
 
         return view('cars.index', [
             'cars' => $cars
