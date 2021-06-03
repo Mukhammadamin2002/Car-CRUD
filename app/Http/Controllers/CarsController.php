@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Product;
+use App\Rules\Uppercase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +51,37 @@ class CarsController extends Controller
         // $car->founded = $request->input('founded');
         // $car->description = $request->input('description');
         // $car->save();
+
+        // Request all inputs fields.
+        // $test = $request->all();
+
+        // Except method
+        //it will get datas except _token
+        // $test = $request->except('_token');
+        // reversing
+        // $test = $request->only('_token');
+
+        // Current Path
+        // if ($request->is('cars')) {
+        //     dd('endpoint is cars');
+        // }
+
+        // Current Method
+        // if($request->method/isMethod('POST')) {
+        //     dd('Method is Post!');
+        // }
+
+        // Show URL
+        // dd($request->url()); It will output whole current url
+
+        // Show the IP
+        // dd($request->ip());
+
+        $request->validate([
+            'name' => new Uppercase,
+            'founded' => 'required|integer|min:0|max:2021',
+            'description' => 'required'
+        ]);
 
         $car = Car::create([
             'name' => $request->input('name'),
