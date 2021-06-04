@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateValidationRequest;
 use App\Models\Car;
 use App\Models\Product;
 use App\Rules\Uppercase;
@@ -78,9 +79,10 @@ class CarsController extends Controller
         // dd($request->ip());
 
         $request->validate([
-            'name' => new Uppercase,
+            'name' => 'required',
             'founded' => 'required|integer|min:0|max:2021',
-            'description' => 'required'
+            'description' => 'required',
+            'image_path' => 'required|mimes:png,jpg,jpeg|max:5048'
         ]);
 
         $car = Car::create([
@@ -125,8 +127,10 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateValidationRequest $request, $id)
     {
+        $request->validated();
+
         $car = Car::where('id', $id)
             ->update([
             'name' => $request->input('name'),
